@@ -1,0 +1,29 @@
+{
+  "presets": [
+    {
+      "id": "late_deadline_peer",
+      "label": "기한을 또 어긴 동료",
+      "example": "또 마감 어겼네? 나만 바보냐"
+    },
+    {
+      "id": "pushy_client",
+      "label": "무리한 요구 고객",
+      "example": "이걸 왜 지금 바꾸래? 말이 돼?"
+    },
+    {
+      "id": "dismissive_manager",
+      "label": "의견 무시 상사",
+      "example": "내 말은 듣지도 않네"
+    },
+    {
+      "id": "overtime_request",
+      "label": "야근 요청 거절",
+      "example": "오늘 야근 못해요. 무리임"
+    },
+    {
+      "id": "urgent_followup",
+      "label": "긴급 후속 요청",
+      "example": "이거 왜 아직도 안 됨?"
+    }
+  ]
+}
