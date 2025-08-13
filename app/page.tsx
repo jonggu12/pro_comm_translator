@@ -4,6 +4,7 @@ import { useState } from "react"
 import Header from "@/components/Header"
 import Controls from "@/components/Controls"
 import Result from "@/components/Result"
+import TranslatorLayout from "@/components/TranslatorLayout"
 
 type AnalysisResult = {
   purpose: string
@@ -152,18 +153,46 @@ export default function Page() {
           </p>
         </div>
 
-        <Controls 
+        <TranslatorLayout 
           busy={busy} 
-          onSubmit={handleSubmit} 
-          customLayout={true}
+          onSubmit={handleSubmit}
+          result={result && !result.needsConfirmation ? result : null}
         />
 
-        <Result 
-          before={before} 
-          result={result} 
-          onConfirmAnalysis={handleConfirmAnalysis}
-          transformSettings={transformSettings}
-        />
+        {result && result.needsConfirmation && (
+          <Result 
+            before={before} 
+            result={result} 
+            onConfirmAnalysis={handleConfirmAnalysis}
+            transformSettings={transformSettings}
+          />
+        )}
+        
+        {result && !result.needsConfirmation && result.analysis && (
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+            <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-4 flex items-center space-x-2">
+              <span>🤖</span>
+              <span>AI 분석 결과</span>
+            </h3>
+            <div className="grid grid-cols-3 gap-4 text-sm">
+              <div>
+                <span className="text-blue-600 dark:text-blue-400">문서 목적:</span>
+                <div className="font-medium text-gray-900 dark:text-gray-100">{result.analysis.purpose}</div>
+              </div>
+              <div>
+                <span className="text-blue-600 dark:text-blue-400">의도:</span>
+                <div className="font-medium text-gray-900 dark:text-gray-100">{result.analysis.intent}</div>
+              </div>
+              <div>
+                <span className="text-blue-600 dark:text-blue-400">정중함:</span>
+                <div className="font-medium text-gray-900 dark:text-gray-100">
+                  {result.analysis.politeness === 1 ? "간결" : 
+                   result.analysis.politeness === 2 ? "정중" : "매우 조심"}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   )
